@@ -1,7 +1,9 @@
 from google.adk.agents import Agent
-from google.adk.tools import McpToolset
+from google.adk.tools import McpToolset, MCPToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
 from mcp import StdioServerParameters
+from google.genai import types
+from google.adk.planners import BuiltInPlanner
 
 # playwright_mcp = McpToolset(
 #     connection_params=StdioConnectionParams(
@@ -20,6 +22,13 @@ playwright_mcp = McpToolset(
         )
     )
 )
+
+# playwright_mcp = MCPToolset(
+#     connection_params=StdioServerParameters(
+#         command="npx",
+#         args=["-y", "@playwright/mcp@latest"]
+#     )
+# )
 browser_assistant = Agent(
     model="gemini-2.5-flash",
     name="browser_assistant",
@@ -31,4 +40,10 @@ browser_assistant = Agent(
         "use the transfer_to_agent tool."
     ),
     tools=[playwright_mcp],
+    planner=BuiltInPlanner(
+        thinking_config=types.ThinkingConfig(
+            thinking_budget=1024,
+            include_thoughts=True
+            ),
+    ),
 )
