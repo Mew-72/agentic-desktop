@@ -11,6 +11,7 @@ from .agents import (
     github_assistant,
     coder_assistant,
     researcher_assistant,
+    browser_assistant,
 )
 
 root_agent = Agent(
@@ -24,6 +25,7 @@ root_agent = Agent(
         github_assistant,
         coder_assistant,
         researcher_assistant,
+        browser_assistant,
     ],
     # tools=[AgentTool(searching_agent)],
     planner=BuiltInPlanner(

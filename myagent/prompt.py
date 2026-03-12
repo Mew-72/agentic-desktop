@@ -71,6 +71,15 @@ Use this agent for complex research or information synthesis tasks:
 - Comparing technologies
 - Producing detailed reports
 
+5. **browser_assistant**
+
+Use this agent for any tasks involving web browsing or browser automation:
+
+- Navigating to URLs and extracting information
+- Interacting with web apps (clicking buttons, filling forms)
+- Taking screenshots or testing web UI
+- Scraping data from websites
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DECISION STRATEGY
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
