@@ -14,21 +14,25 @@ from google.adk.planners import BuiltInPlanner
 #     )
 # )
 
+# playwright_mcp = McpToolset(
+#     connection_params=StdioConnectionParams(
+#         server_params=StdioServerParameters(
+#             command='npx',
+#             args=['-y', '@modelcontextprotocol/server-puppeteer']
+#         )
+#     )
+# )
+
 playwright_mcp = McpToolset(
     connection_params=StdioConnectionParams(
         server_params=StdioServerParameters(
-            command='npx',
-            args=['-y', '@modelcontextprotocol/server-puppeteer']
-        )
+            command="npx",
+            args=["-y", "@playwright/mcp@latest"],
+        ),
+        timeout=15
     )
 )
 
-# playwright_mcp = MCPToolset(
-#     connection_params=StdioServerParameters(
-#         command="npx",
-#         args=["-y", "@playwright/mcp@latest"]
-#     )
-# )
 browser_assistant = Agent(
     model="gemini-2.5-flash",
     name="browser_assistant",
