@@ -1,8 +1,9 @@
 from google.adk.agents import Agent
+from google.genai import types
 from ...tools import execute_command, explain_error
 
 coder_assistant = Agent(
-    model="gemini-2.5-pro",
+    model="gemini-2.5-flash",
     name="coder_assistant",
     description="A specialist in writing, reading, and refactoring local code files.",
     instruction=(
@@ -14,4 +15,7 @@ coder_assistant = Agent(
         "use the transfer_to_agent tool."
     ),
     tools=[execute_command, explain_error],
+    generate_content_config=types.GenerateContentConfig(
+        thinking_config=types.ThinkingConfig(thinking_budget=1024)
+    ),
 )
