@@ -24,7 +24,7 @@ Jarvis acts as an autonomous router that delegates tasks to specialized sub-agen
 
 1. **Install Dependencies** (inside a virtual environment):
    ```bash
-   pip install google-adk python-dotenv
+   pip install -r requirements.txt
    ```
 
 2. **Configure Environment Variables**:
