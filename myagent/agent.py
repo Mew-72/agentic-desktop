@@ -12,6 +12,7 @@ from .agents import (
     coder_assistant,
     researcher_assistant,
     browser_assistant,
+    file_manager_assistant,
 )
 
 root_agent = Agent(
@@ -26,6 +27,7 @@ root_agent = Agent(
         coder_assistant,
         researcher_assistant,
         browser_assistant,
+        file_manager_assistant,
     ],
     # tools=[AgentTool(searching_agent)],
     planner=BuiltInPlanner(

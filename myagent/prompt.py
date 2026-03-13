@@ -80,6 +80,15 @@ Use this agent for any tasks involving web browsing or browser automation:
 - Taking screenshots or testing web UI
 - Scraping data from websites
 
+6. **file_manager_assistant**
+
+Use this agent for secure file and directory operations:
+
+- Exploring, listing, and searching directories
+- Reading or writing directly to specific target files
+- Modifying, renaming, or deleting files locally
+- This agent is strictly restricted to allowed directories for security
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DECISION STRATEGY
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

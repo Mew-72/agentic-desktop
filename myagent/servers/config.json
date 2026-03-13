@@ -1,0 +1,25 @@
+{
+  "allowed_directories": [
+    "d:/Programming/CV/agent/myagent"
+  ],
+  "max_file_size_mb": 10,
+  "log_operations": true,
+  "confirm_pin": "1234",
+  "protected_extensions": [
+    ".env", ".key", ".pem", ".crt", ".pfx",
+    ".db", ".sqlite", ".sql",
+    ".exe", ".dll", ".sys",
+    ".bat", ".cmd", ".ps1",
+    ".conf", ".cfg", ".ini"
+  ],
+  "protected_patterns": [
+    "password*", "secret*", "credential*",
+    "*.backup", "*.bak",
+    ".git*", ".ssh*"
+  ],
+  "always_confirm_operations": [
+    "delete_file",
+    "rename_file",
+    "write_file_overwrite"
+  ]
+}
