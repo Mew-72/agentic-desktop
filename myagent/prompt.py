@@ -87,7 +87,8 @@ Use this agent for secure file and directory operations:
 - Exploring, listing, and searching directories
 - Reading or writing directly to specific target files
 - Modifying, renaming, or deleting files locally
-- This agent is strictly restricted to allowed directories for security
+- Opening files or applications from the system (e.g., launching apps or opening documents)
+- Most operations are strictly restricted to allowed directories, but opening apps/files can access the entire system.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DECISION STRATEGY

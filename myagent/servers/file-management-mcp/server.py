@@ -170,31 +170,20 @@ def read_file(path: str, max_lines: int = 0) -> str:
 # ──────────────────────────────────────────────
 
 @mcp.tool()
-def write_file(path: str, content: str, append: bool = False, confirm_pin: str = "") -> str:
+def write_file(path: str, content: str, append: bool = False) -> str:
     """
     Write content to a file. Creates the file if it doesn't exist.
-    For overwriting existing important files, the user must provide their PIN.
 
     Args:
         path: Path to the file to write
         content: The text content to write
         append: If True, append to file instead of overwriting (default: False)
-        confirm_pin: The user's confirmation PIN (required for overwriting protected files)
 
     Returns:
         Success or error message
     """
     try:
         resolved = validator.validate_path(path)
-
-        # Check if overwriting an existing file needs approval
-        if resolved.exists() and not append:
-            needs, message = validator.needs_approval("write_file_overwrite", path)
-            if needs:
-                if not confirm_pin:
-                    return message
-                if not validator.verify_pin(confirm_pin):
-                    return "❌ Wrong PIN! Operation cancelled. The file was NOT modified."
 
         # Ensure parent directory exists
         resolved.parent.mkdir(parents=True, exist_ok=True)
@@ -225,28 +214,18 @@ def write_file(path: str, content: str, append: bool = False, confirm_pin: str =
 # ──────────────────────────────────────────────
 
 @mcp.tool()
-def delete_file(path: str, confirm_pin: str = "") -> str:
+def delete_file(path: str) -> str:
     """
     Delete a file or empty directory.
-    Requires user's confirmation PIN. Ask user for PIN before calling.
 
     Args:
         path: Path to the file or empty directory to delete
-        confirm_pin: The user's confirmation PIN (required for deletion)
 
     Returns:
-        Success or error message, or approval request
+        Success or error message
     """
     try:
         resolved = validator.validate_path(path, must_exist=True)
-
-        # Check if approval is needed for delete
-        needs, message = validator.needs_approval("delete_file", path)
-        if needs:
-            if not confirm_pin:
-                return message
-            if not validator.verify_pin(confirm_pin):
-                return "❌ Wrong PIN! Operation cancelled. The file was NOT deleted."
 
         if resolved.is_file():
             resolved.unlink()
@@ -281,30 +260,20 @@ def delete_file(path: str, confirm_pin: str = "") -> str:
 # ──────────────────────────────────────────────
 
 @mcp.tool()
-def rename_file(old_path: str, new_path: str, confirm_pin: str = "") -> str:
+def rename_file(old_path: str, new_path: str) -> str:
     """
     Rename or move a file/directory. Both paths must be in allowed directories.
-    Requires user's confirmation PIN. Ask user for PIN before calling.
 
     Args:
         old_path: Current path of the file/directory
         new_path: New path for the file/directory
-        confirm_pin: The user's confirmation PIN (required for renaming)
 
     Returns:
-        Success or error message, or approval request
+        Success or error message
     """
     try:
         resolved_old = validator.validate_path(old_path, must_exist=True)
         resolved_new = validator.validate_path(new_path)
-
-        # Check if approval is needed
-        needs, message = validator.needs_approval("rename_file", old_path)
-        if needs:
-            if not confirm_pin:
-                return message
-            if not validator.verify_pin(confirm_pin):
-                return "❌ Wrong PIN! Operation cancelled. The file was NOT renamed."
 
         if resolved_new.exists():
             return f"⚠️ Destination already exists: '{new_path}'"
@@ -498,48 +467,26 @@ def search_files(directory: str, pattern: str, max_results: int = 50) -> str:
 
 
 # ──────────────────────────────────────────────
-# Tool 9: Open File in Default App
+# Tool 9: Open File or App
 # ──────────────────────────────────────────────
 
 @mcp.tool()
-def open_file(path: str, confirm_pin: str = "") -> str:
+def open_file_or_app(path_or_name: str) -> str:
     """
-    Open a file in its default application (e.g. PDF in Acrobat, image in Photos).
-    Requires user's confirmation PIN since it launches an external program.
+    Open any file or application from the system in its default app (e.g. PDF in Acrobat, 'calc' to open calculator).
+    This is NOT restricted to allowed directories.
 
     Args:
-        path: Path to the file to open
-        confirm_pin: The user's confirmation PIN (required)
+        path_or_name: Path to the file or name of the app to open
 
     Returns:
         Success or error message
     """
     try:
-        resolved = validator.validate_path(path, must_exist=True)
+        os.startfile(path_or_name)
+        validator.log_operation("open_file_or_app", path_or_name)
+        return f"✅ Opened '{path_or_name}' successfully."
 
-        if not resolved.is_file():
-            return f"Error: '{path}' is not a file"
-
-        # Opening files requires PIN (it launches external programs)
-        if not confirm_pin:
-            return (
-                f"🔒 APPROVAL REQUIRED to open '{resolved.name}':\n"
-                f"  • ⚠️ This will launch an external application\n\n"
-                f"🔑 Ask the user for their confirmation PIN to proceed."
-            )
-        if not validator.verify_pin(confirm_pin):
-            return "❌ Wrong PIN! Operation cancelled. The file was NOT opened."
-
-        os.startfile(str(resolved))
-        validator.log_operation("open_file", path)
-        return f"✅ Opened '{resolved.name}' in its default application."
-
-    except SecurityError as e:
-        return f"🚫 Security Error: {e}"
-    except FileNotFoundError as e:
-        return f"❌ Not Found: {e}"
-    except PermissionError:
-        return f"🔒 Permission Denied: Cannot open '{path}'"
     except Exception as e:
         return f"❌ Error: {e}"
 
