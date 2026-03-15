@@ -34,7 +34,8 @@ playwright_mcp = McpToolset(
 )
 
 browser_assistant = Agent(
-    model="gemini-2.5-flash",
+    # model="gemini-2.5-flash",
+    model="gemini-2.5-flash-lite",
     name="browser_assistant",
     description="A specialist in automating browsers and web testing via Playwright.",
     instruction=(

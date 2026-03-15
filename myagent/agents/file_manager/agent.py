@@ -22,7 +22,8 @@ file_manager_mcp = McpToolset(
 )
 
 file_manager_assistant = Agent(
-    model="gemini-2.5-flash",
+    # model="gemini-2.5-flash",
+    model="gemini-2.5-flash-lite",
     name="file_manager_assistant",
     description="A specialist in secure file management operations.",
     instruction=(

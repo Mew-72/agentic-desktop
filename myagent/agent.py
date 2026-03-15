@@ -16,7 +16,7 @@ from .agents import (
 )
 
 root_agent = Agent(
-    model=Gemini(model="gemini-2.5-flash"),
+    model=Gemini(model="gemini-2.5-flash-lite"),
     # model="gemini-2.5-flash-native-audio-latest",
     name="jarvis",
     description="Main entry point. A general-purpose AI assistant that routes users to specialists.",
