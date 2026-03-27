@@ -34,8 +34,8 @@ playwright_mcp = McpToolset(
 )
 
 browser_assistant = Agent(
-    # model="gemini-2.5-flash",
-    model="gemini-2.5-flash-lite",
+    model="gemini-2.5-pro",
+    # model="gemini-2.5-flash-lite",
     name="browser_assistant",
     description="A specialist in automating browsers and web testing via Playwright.",
     instruction=(
@@ -47,7 +47,7 @@ browser_assistant = Agent(
     tools=[playwright_mcp],
     planner=BuiltInPlanner(
         thinking_config=types.ThinkingConfig(
-            thinking_budget=1024,
+            thinking_budget=512,
             include_thoughts=True
             ),
     ),
