@@ -18,6 +18,7 @@ lib/
 lib64/
 parts/
 sdist/
+jjk/
 var/
 wheels/
 share/python-wheels/
@@ -135,6 +136,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+.adk
 .env
 .envrc
 .venv
